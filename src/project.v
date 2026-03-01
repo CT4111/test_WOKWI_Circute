@@ -84,118 +84,82 @@ module tt_um_ct4111_buzzer (
     reg [7:0] song1 [0:63];
 
     initial begin
-        // ════ Imperial March – opening theme, 6 measures ════════════════════
-        //
-        // Measure 1 & 2 (identical):  A4(-4) A4(-4) A4(16)×4  F4(8)  REST(8)
-        //   A4  dot-qtr  {3,0,3} = 0x33
-        //   A4  16th     {3,0,7} = 0x37
-        //   F4  8th      {1,0,6} = 0x16
-        //   REST 8th     {0,0,6} = 0x06
+        // ════ Imperial March – extended (measures 1‑6 + 7‑10) ════════════════
+        // Measures 1‑2:  A4 dot‑qtr ×2, A4 16th ×4, F4 8th, REST 8th (repeat)
         song0[ 0] = 8'h33; song0[ 1] = 8'h33;                   // A4(-4) A4(-4)
         song0[ 2] = 8'h37; song0[ 3] = 8'h37;                   // A4(16) A4(16)
         song0[ 4] = 8'h37; song0[ 5] = 8'h37;                   // A4(16) A4(16)
         song0[ 6] = 8'h16; song0[ 7] = 8'h06;                   // F4(8)  REST(8)
-        song0[ 8] = 8'h33; song0[ 9] = 8'h33;                   // repeat meas 1
+        song0[ 8] = 8'h33; song0[ 9] = 8'h33;                   // repeat
         song0[10] = 8'h37; song0[11] = 8'h37;
         song0[12] = 8'h37; song0[13] = 8'h37;
         song0[14] = 8'h16; song0[15] = 8'h06;
-        //
         // Measure 3:  A4(4) A4(4) A4(4)  F4(-8)  C5(16)
-        //   F4  dot-8th  {1,0,5} = 0x15
-        //   C5  16th     {5,0,7} = 0x57
         song0[16] = 8'h34; song0[17] = 8'h34; song0[18] = 8'h34; // A4(4)×3
         song0[19] = 8'h15; song0[20] = 8'h57;                     // F4(-8) C5(16)
-        //
         // Measure 4:  A4(4)  F4(-8)  C5(16)  A4(2)
-        //   A4  half     {3,0,2} = 0x32
         song0[21] = 8'h34; song0[22] = 8'h15;                    // A4(4) F4(-8)
         song0[23] = 8'h57; song0[24] = 8'h32;                    // C5(16) A4(2)
-        //
         // Measure 5:  E5(4) E5(4) E5(4)  F5(-8)  C5(16)
-        //   E5  qtr      {9,0,4} = 0x94
-        //   F5  dot-8th  {A,0,5} = 0xA5
         song0[25] = 8'h94; song0[26] = 8'h94; song0[27] = 8'h94; // E5(4)×3
         song0[28] = 8'hA5; song0[29] = 8'h57;                     // F5(-8) C5(16)
-        //
         // Measure 6:  A4(4)  F4(-8)  C5(16)  A4(2)
         song0[30] = 8'h34; song0[31] = 8'h15;
         song0[32] = 8'h57; song0[33] = 8'h32;
-        //
-        // Loop marker  {F,0,0} = 0xF0
-        song0[34] = 8'hF0;
+        // Measure 7 (first part): A5(4) A4(-8) A4(16) A5(4) GS5(-8) G5(16)
+        song0[34] = 8'hE4; song0[35] = 8'h35; song0[36] = 8'h37; // A5(4) A4(-8) A4(16)
+        song0[37] = 8'hE4; song0[38] = 8'hD5; song0[39] = 8'hC7; // A5(4) GS5(-8) G5(16)
+        // Measure 7 (continued): DS5(16) D5(16) DS5(8) REST(8) A4(8) DS5(4) D5(-8) CS5(16)
+        song0[40] = 8'h77; song0[41] = 8'h87; song0[42] = 8'h76; // DS5(16) D5(16) DS5(8)
+        song0[43] = 8'h06; song0[44] = 8'h36; song0[45] = 8'h74; // REST(8) A4(8) DS5(4)
+        song0[46] = 8'h85; song0[47] = 8'h67;                     // D5(-8) CS5(16)
+        // Measure 9: C5(16) B4(16) C5(16) REST(8) F4(8) GS4(4) F4(-8) A4(16)
+        song0[48] = 8'h57; song0[49] = 8'h47; song0[50] = 8'h57; // C5(16) B4(16) C5(16)
+        song0[51] = 8'h06; song0[52] = 8'h16; song0[53] = 8'h24; // REST(8) F4(8) GS4(4)
+        song0[54] = 8'h15; song0[55] = 8'h37;                     // F4(-8) A4(16)
+        // Measure 10: C5(4) A4(-8) C5(16) E5(2)
+        song0[56] = 8'h54; song0[57] = 8'h35; song0[58] = 8'h57; // C5(4) A4(-8) C5(16)
+        song0[59] = 8'h92;                                        // E5(2)
+        // Loop marker
+        song0[60] = 8'hF0;
         begin : fill_s0
             integer i;
-            for (i = 35; i < 64; i = i+1) song0[i] = 8'hF0;
+            for (i = 61; i < 64; i = i+1) song0[i] = 8'hF0;
         end
     end
 
     initial begin
         // ════ Never Gonna Give You Up – main chorus, 8 measures ═════════════
-        //
-        // Measure 17:  FS5(-8) FS5(-8)  E5(-4)  A4(16) B4(16) D5(16) B4(16)
-        //   FS5 dot-8th  {B,0,5} = 0xB5
-        //   E5  dot-qtr  {9,0,3} = 0x93
-        //   B4  16th     {4,0,7} = 0x47
-        //   D5  16th     {8,0,7} = 0x87
+        // (unchanged)
         song1[ 0] = 8'hB5; song1[ 1] = 8'hB5;                    // FS5(-8) FS5(-8)
         song1[ 2] = 8'h93;                                         // E5(-4)
         song1[ 3] = 8'h37; song1[ 4] = 8'h47;                    // A4(16) B4(16)
         song1[ 5] = 8'h87; song1[ 6] = 8'h47;                    // D5(16) B4(16)
-        //
-        // Measure 18:  E5(-8) E5(-8) D5(-8) CS5(16) B4(-8) A4(16) B4(16) D5(16) B4(16)
-        //   E5  dot-8th  {9,0,5} = 0x95
-        //   D5  dot-8th  {8,0,5} = 0x85
-        //   CS5 16th     {6,0,7} = 0x67
-        //   B4  dot-8th  {4,0,5} = 0x45
         song1[ 7] = 8'h95; song1[ 8] = 8'h95;                    // E5(-8) E5(-8)
         song1[ 9] = 8'h85; song1[10] = 8'h67;                    // D5(-8) CS5(16)
         song1[11] = 8'h45;                                         // B4(-8)
         song1[12] = 8'h37; song1[13] = 8'h47;                    // A4(16) B4(16)
         song1[14] = 8'h87; song1[15] = 8'h47;                    // D5(16) B4(16)
-        //
-        // Measure 19:  D5(4) E5(8) CS5(-8) B4(16) A4(8) A4(8) A4(8)
-        //   D5  qtr      {8,0,4} = 0x84
-        //   E5  8th      {9,0,6} = 0x96
-        //   CS5 dot-8th  {6,0,5} = 0x65
-        //   A4  8th      {3,0,6} = 0x36
         song1[16] = 8'h84; song1[17] = 8'h96;                    // D5(4) E5(8)
         song1[18] = 8'h65; song1[19] = 8'h47;                    // CS5(-8) B4(16)
         song1[20] = 8'h36; song1[21] = 8'h36; song1[22] = 8'h36; // A4(8)×3
-        //
-        // Measure 20:  E5(4) D5(2)  A4(16) B4(16) D5(16) B4(16)
-        //   D5  half     {8,0,2} = 0x82
         song1[23] = 8'h94; song1[24] = 8'h82;                    // E5(4) D5(2)
         song1[25] = 8'h37; song1[26] = 8'h47;                    // A4(16) B4(16)
         song1[27] = 8'h87; song1[28] = 8'h47;                    // D5(16) B4(16)
-        //
-        // Measure 21:  FS5(-8) FS5(-8)  E5(-4)  A4(16) B4(16) D5(16) B4(16)
-        song1[29] = 8'hB5; song1[30] = 8'hB5;
-        song1[31] = 8'h93;
-        song1[32] = 8'h37; song1[33] = 8'h47;
-        song1[34] = 8'h87; song1[35] = 8'h47;
-        //
-        // Measure 22:  A5(4) CS5(8) D5(-8) CS5(16) B4(8) A4(16) B4(16) D5(16) B4(16)
-        //   A5  qtr      {E,0,4} = 0xE4
-        //   CS5 8th      {6,0,6} = 0x66
-        //   B4  8th      {4,0,6} = 0x46
+        song1[29] = 8'hB5; song1[30] = 8'hB5;                    // FS5(-8) FS5(-8)
+        song1[31] = 8'h93;                                         // E5(-4)
+        song1[32] = 8'h37; song1[33] = 8'h47;                    // A4(16) B4(16)
+        song1[34] = 8'h87; song1[35] = 8'h47;                    // D5(16) B4(16)
         song1[36] = 8'hE4; song1[37] = 8'h66;                    // A5(4) CS5(8)
         song1[38] = 8'h85; song1[39] = 8'h67;                    // D5(-8) CS5(16)
         song1[40] = 8'h46;                                         // B4(8)
         song1[41] = 8'h37; song1[42] = 8'h47;                    // A4(16) B4(16)
         song1[43] = 8'h87; song1[44] = 8'h47;                    // D5(16) B4(16)
-        //
-        // Measure 23:  D5(4) E5(8) CS5(-8) B4(16) A4(4) A4(8)
-        //   A4  qtr      {3,0,4} = 0x34
         song1[45] = 8'h84; song1[46] = 8'h96;                    // D5(4) E5(8)
         song1[47] = 8'h65; song1[48] = 8'h47;                    // CS5(-8) B4(16)
         song1[49] = 8'h34; song1[50] = 8'h36;                    // A4(4) A4(8)
-        //
-        // Measure 24:  E5(4) D5(2) REST(4)
-        //   REST qtr     {0,0,4} = 0x04
         song1[51] = 8'h94; song1[52] = 8'h82; song1[53] = 8'h04; // E5(4) D5(2) REST(4)
-        //
-        // Loop marker
-        song1[54] = 8'hF0;
+        song1[54] = 8'hF0;                                        // Loop marker
         begin : fill_s1
             integer i;
             for (i = 55; i < 64; i = i+1) song1[i] = 8'hF0;
@@ -282,6 +246,5 @@ module tt_um_ct4111_buzzer (
 
     // Suppress unused-input warnings
     wire _unused = &{ena, uio_in, ui_in[7:2], 1'b0};
-
 
 endmodule
