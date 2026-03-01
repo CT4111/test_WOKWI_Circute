@@ -2,8 +2,8 @@
 project:
   title:        "Two Song Buzzer Player"      # Project title
   author:       "Simon"      # Your name
-  discord:      "Plays a part Never Gonna Give You Up and Imperial March on a buzzer, switchable via input"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "Plays a part Never Gonna Give You Up and Imperial March on a buzzer, switchable via input"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     50000000  # Clock frequency in Hz (or 0 if not applicable)
 
