@@ -2,16 +2,16 @@
 project:
   title:        "Two Song Buzzer Player"      # Project title
   author:       "Simon"      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "Plays a part of Never Gonna Give You Up and Imperial March on a buzzer, switchable via input"      # One line description of what your project does
+  discord:      "Plays a part Never Gonna Give You Up and Imperial March on a buzzer, switchable via input"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  ""      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
-  clock_hz:      50000000  # 50MHz   Clock frequency in Hz (or 0 if not applicable)
+  clock_hz:     50000000  # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
   tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_ct4111"
+  top_module:  "tt_um_ct4111_buzzer"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
@@ -24,7 +24,7 @@ project:
 pinout:
   # Inputs
   ui[0]: "Song select (0=NGGU, 1=Imperial March)"
-  ui[1]: "Buzzer PWM output""
+  ui[1]: "Pause"
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""
